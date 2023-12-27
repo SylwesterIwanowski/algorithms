@@ -34,23 +34,27 @@ function timeConversion(s) {
     const split_s2 = split_s[2].split('')
     let timeConv = []
 
-    if (split_s2[2] == 'P') {
+    if (split_s2[2] == 'P' && split_s != '12') {
         let split_s0int = parseInt(split_s[0])
         split_s0int +=12
         const split_s0str = split_s0int.toString()
         timeConv.push(split_s0str, ':', split_s[1], ':', split_s2[0], split_s2[1])
-        const timeConvStr = timeConv.join()
+        const timeConvStr = timeConv.join('')
+        return timeConvStr
+    } else if( split_s2[2] == 'A' && split_s[0] == '12'  ) {
+        timeConv.push('00', ':', split_s[1], ':', split_s2[0], split_s2[1])
+        const timeConvStr = timeConv.join('')
         return timeConvStr
     } else {
         timeConv.push(split_s[0], ':', split_s[1], ':', split_s2[0], split_s2[1])
-        const timeConvStr = timeConv.join()
+        const timeConvStr = timeConv.join('')
         return timeConvStr
     }
 }
 
 function main() {
-    
-    const ws = fs.createWriteStream(process.env.OUTPUT_PATH);
+
+    const ws = fs.createWriteStream(process.env.OUTPUT_PATH ?? "output.txt");
 
     const s =readLine();
 
